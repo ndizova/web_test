@@ -2,28 +2,66 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<<<<<<< HEAD
+<<<<<<< HEAD
 <title>For You</title>
+=======
+<title>Test</title>
+>>>>>>> 601437e (Update index.html)
+=======
+<title>For You 💖</title>
+>>>>>>> dc1f08d (Revamp index.html with new styles and animations)
 <style>
   body {
-    background: #111;
-    color: #0f0;
-    font-family: monospace;
-    white-space: pre;
-    padding: 20px;
-    font-size: 16px;
+    margin: 0;
+    background: #000;
+    font-family: Consolas, monospace;
+    overflow: hidden;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    flex-direction: column;
+  }
+
+  #cuteBox {
+    font-size: 20px;
+    white-space: pre;
+    text-align: center;
+    color: #fff;
+    animation: wiggle 1.2s infinite ease-in-out;
+  }
+
+  /* Wiggle animation */
+  @keyframes wiggle {
+    0% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-6px) rotate(-2deg); }
+    50% { transform: translateY(0) rotate(0deg); }
+    75% { transform: translateY(-6px) rotate(2deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+  }
+
+  .heart {
+    position: absolute;
+    color: #ff3366;
+    font-size: 18px;
+    animation: floatUp 5s linear infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-120vh) scale(1.4); opacity: 0; }
   }
 </style>
 </head>
 <body>
 
-<div id="ascii"></div>
+<div id="cuteBox"></div>
 
 <script>
-const frames = [
+// More complex hugging ASCII figures
+const cuteThings = [
 `  (\\_/)
   ( •_•)
   / >❤️`,
@@ -32,30 +70,33 @@ const frames = [
  ( o.o )
   > ^ <`,
 
-`  (•ᴥ• )
-  /︶\\`,
+`
+ʕっ•ᴥ•ʔっ`,
 
-`  (°ᴥ°)
-  (____)`,
-
-`  (='.'=)
-  (")_(")`,
-
-`  (•ㅅ•)
-  / 　 づ`,
-
-`  (❍ᴥ❍ʋ)`,
-
-`  (•‿•)
-  (___)0`,
-
+`  (っ•́‿•̀)っ
+      🖤`
 ];
 
 let i = 0;
 setInterval(() => {
-  document.getElementById("ascii").textContent = frames[i];
-  i = (i + 1) % frames.length;
-}, 900);
+  document.getElementById("cuteBox").textContent = cuteThings[i];
+  i = (i + 1) % cuteThings.length;
+}, 1200);
+
+// Floating hearts
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.textContent = "❤";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (16 + Math.random() * 20) + "px";
+  heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 7000);
+}
+
+setInterval(createHeart, 300);
 </script>
 
 </body>
