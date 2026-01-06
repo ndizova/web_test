@@ -11,37 +11,51 @@
     white-space: pre;
     padding: 20px;
     font-size: 16px;
-  }
-  #msg {
-    margin-top: 20px;
-    color: #fff;
-    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
   }
 </style>
 </head>
 <body>
 
 <div id="ascii"></div>
-<div id="msg">Just a tiny reminder that someone out there cares about you.</div>
 
 <script>
 const frames = [
 `  (\\_/)
   ( •_•)
-  / >❤️   sending a little hug`,
-`  (\\_/)
-  ( •_•)
-  / >💛   stay strong`,
-`  (\\_/)
-  ( •_•)
-  / >💚   you're not alone`,
+  / >❤️`,
+
+`  /\\_/\\
+ ( o.o )
+  > ^ <`,
+
+`  (•ᴥ• )
+  /︶\\`,
+
+`  (°ᴥ°)
+  (____)`,
+
+`  (='.'=)
+  (")_(")`,
+
+`  (•ㅅ•)
+  / 　 づ`,
+
+`  (❍ᴥ❍ʋ)`,
+
+`  (•‿•)
+  (___)0`,
+
 ];
 
 let i = 0;
 setInterval(() => {
   document.getElementById("ascii").textContent = frames[i];
   i = (i + 1) % frames.length;
-}, 800);
+}, 900);
 </script>
 
 </body>
