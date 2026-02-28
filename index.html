@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Valentine</title>
+<title>Test</title>
 <style>
   body {
     margin: 0;
@@ -14,22 +14,17 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    color: white;
-    position: relative;
   }
 
   #cuteBox {
-    font-size: 22px;
+    font-size: 20px;
     white-space: pre;
     text-align: center;
-    margin-bottom: 20px;
+    color: #fff;
     animation: wiggle 1.2s infinite ease-in-out;
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
+  /* Wiggle animation */
   @keyframes wiggle {
     0% { transform: translateY(0) rotate(0deg); }
     25% { transform: translateY(-6px) rotate(-2deg); }
@@ -38,74 +33,27 @@
     100% { transform: translateY(0) rotate(0deg); }
   }
 
-  #question {
-    font-size: 36px;
-    margin-bottom: 25px;
-    text-align: center;
-  }
-
-  .btn {
-    padding: 15px 30px;
-    font-size: 22px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin: 10px;
-    transition: 0.3s ease;
-  }
-
-  #yesBtn, #yesBtn2 {
-    background-color: hotpink;
-    color: white;
-  }
-
-  /* No button starts aligned normally */
-  #noBtn {
-    background-color: gray;
-    color: white;
-    position: relative;
-  }
-
-  #message {
-    font-size: 32px;
-    margin-top: 40px;
-    display: none;
-    text-align: center;
-  }
-
   .heart {
     position: absolute;
     color: #ff3366;
     font-size: 18px;
     animation: floatUp 5s linear infinite;
     opacity: 0.7;
-    pointer-events: none;
   }
 
   @keyframes floatUp {
     0% { transform: translateY(0) scale(1); opacity: 1; }
     100% { transform: translateY(-120vh) scale(1.4); opacity: 0; }
   }
+
+
 </style>
 </head>
 <body>
 
 <div id="cuteBox"></div>
 
-<div id="question">Will you be my Valentine?</div>
-
-<button id="yesBtn" class="btn">Yes</button>
-<button id="noBtn" class="btn">No</button>
-<button id="yesBtn2" class="btn" style="display:none;">Yes</button>
-
-<div id="message">
-  ❤️ Yeyyy, thank you babyyy ❤️ <br>
-  You made me the happiest girl on earth <br>
-  I love youuu 🥰
-</div>
-
 <script>
-// Cute rotating figures
 const cuteThings = [
 `  (\\_/)
   ( •_•)
@@ -115,9 +63,11 @@ const cuteThings = [
   ( o.o )
   > ^ <`,
 
-`ʕっ•ᴥ•ʔっ`,
+`
+ʕっ•ᴥ•ʔっ`,
 
-`(っ•́‿•̀)っ
+`
+(っ•́‿•̀)っ
    🖤`
 ];
 
@@ -139,97 +89,10 @@ function createHeart() {
 
   setTimeout(() => heart.remove(), 7000);
 }
+
 setInterval(createHeart, 300);
 
-// Valentine logic
-let noClicks = 0;
 
-const yesBtn = document.getElementById("yesBtn");
-const yesBtn2 = document.getElementById("yesBtn2");
-const noBtn = document.getElementById("noBtn");
-const message = document.getElementById("message");
-
-// No-button messages
-const noMessages = [
-  "you are too cute to say no",
-  "i will give you a hug if you say yes",
-  "really?",
-  "are you sure?",
-  "please?",
-  "pretty please?",
-  "just one tiny yes?",
-  "think again...",
-  "last chance...",
-  "okay now you HAVE to say yes"
-];
-
-// TRUE NO-GO ZONE FUNCTION (now includes YES button)
-function getNoGoZoneHeight() {
-  const yesRect = yesBtn.getBoundingClientRect();
-  return yesRect.bottom; // bottom of the Yes button area
-}
-
-noBtn.addEventListener("click", () => {
-  noClicks++;
-
-  if (noClicks <= 10) {
-    noBtn.textContent = noMessages[noClicks - 1];
-  }
-
-  // First click: switch to absolute so it can move freely
-  noBtn.style.position = "absolute";
-
-  // Bigger scaling for YES
-  yesBtn.style.fontSize = (22 + noClicks * 8) + "px";
-  yesBtn.style.padding = (15 + noClicks * 4) + "px";
-
-  // Shrink NO button but keep readable
-  let newSize = Math.max(14, 22 - noClicks * 1.2);
-  noBtn.style.fontSize = newSize + "px";
-  noBtn.style.padding = Math.max(6, 12 - noClicks * 0.6) + "px";
-
-  // --- TRUE NO-GO ZONE MOVEMENT (now includes YES button) ---
-  const noGoBottom = getNoGoZoneHeight();
-  const screenHeight = window.innerHeight;
-
-  let minY = noGoBottom + 20;
-  let maxY = screenHeight - 80;
-
-  if (maxY <= minY) {
-    minY = screenHeight * 0.4;
-    maxY = screenHeight * 0.85;
-  }
-
-  const newY = Math.random() * (maxY - minY) + minY;
-  noBtn.style.top = newY + "px";
-
-  noBtn.style.left = Math.random() * 80 + "%";
-
-  // After 10 clicks → remove No, show 2 Yes buttons
-  if (noClicks >= 10) {
-    noBtn.style.display = "none";
-    yesBtn2.style.display = "inline-block";
-
-    yesBtn.style.fontSize = "40px";
-    yesBtn2.style.fontSize = "40px";
-
-    yesBtn.style.padding = "20px 40px";
-    yesBtn2.style.padding = "20px 40px";
-
-    yesBtn.textContent = "Yes ❤️";
-    yesBtn2.textContent = "Yes ❤️";
-  }
-});
-
-function acceptLove() {
-  yesBtn.style.display = "none";
-  yesBtn2.style.display = "none";
-  noBtn.style.display = "none";
-  message.style.display = "block";
-}
-
-yesBtn.addEventListener("click", acceptLove);
-yesBtn2.addEventListener("click", acceptLove);
 </script>
 
 </body>
